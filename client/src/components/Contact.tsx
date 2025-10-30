@@ -10,16 +10,56 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
+      delayChildren: 0.3,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, x: -50, scale: 0.9 },
   visible: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
+    x: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 12,
+      duration: 0.8,
+    },
+  },
+};
+
+const buttonVariants = {
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.2,
+      type: "spring",
+      stiffness: 400,
+    },
+  },
+  tap: {
+    scale: 0.95,
+  },
+};
+
+const iconVariants = {
+  initial: { scale: 0, rotate: 0 },
+  animate: { 
+    scale: 1,
+    rotate: 360,
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      damping: 20,
+    }
+  },
+  hover: {
+    rotate: [0, -10, 10, 0],
+    transition: {
+      duration: 0.5,
+    },
   },
 };
 

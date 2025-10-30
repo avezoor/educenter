@@ -41,6 +41,7 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
       className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled ? "bg-background/95 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
@@ -50,25 +51,63 @@ export function Header() {
           <motion.div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollToSection("hero")}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, rotate: [0, -5, 5, 0] }}
             whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
             data-testid="logo-button"
           >
-            <Heart className="w-8 h-8 text-primary fill-primary" />
-            <span className="text-xl font-bold">EduCenter</span>
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <Heart className="w-8 h-8 text-primary fill-primary" />
+            </motion.div>
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xl font-bold"
+            >
+              EduCenter
+            </motion.span>
           </motion.div>
 
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Button
+            {navItems.map((item, index) => (
+              <motion.div
                 key={item.id}
-                variant="ghost"
-                onClick={() => scrollToSection(item.id)}
-                className="hover-elevate"
-                data-testid={`nav-${item.id}`}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                whileHover={{ y: -2 }}
               >
-                {item.label}
-              </Button>
+                <Button
+                  variant="ghost"
+                  onClick={() => scrollToSection(item.id)}
+                  className="hover-elevate relative overflow-hidden group"
+                  data-testid={`nav-${item.id}`}
+                >
+                  <motion.span
+                    className="relative z-10"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {item.label}
+                  </motion.span>
+                  <motion.div
+                    className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </Button>
+              </motion.div>
             ))}
           </nav>
 

@@ -33,6 +33,7 @@ export function MealPlanning() {
       title: "Sarapan",
       color: "text-accent",
       bgColor: "from-accent/20 to-accent/5",
+      image: "/images/pagi.png",
       items: [
         "Oatmeal dengan potongan apel dan sedikit madu",
         "Telur rebus dan roti gandum panggang",
@@ -44,6 +45,7 @@ export function MealPlanning() {
       title: "Makan Siang",
       color: "text-primary",
       bgColor: "from-primary/20 to-primary/5",
+      image: "/images/siang.png",
       items: [
         "Nasi merah",
         "Ikan panggang atau ayam tanpa kulit",
@@ -56,6 +58,7 @@ export function MealPlanning() {
       title: "Camilan Sore",
       color: "text-secondary",
       bgColor: "from-secondary/20 to-secondary/5",
+      image: "/images/sore.png",
       items: [
         "Buah segar rendah gula (apel, pir, pepaya)",
         "Kacang almond",
@@ -66,6 +69,7 @@ export function MealPlanning() {
       title: "Makan Malam",
       color: "text-primary",
       bgColor: "from-primary/20 to-primary/5",
+      image: "/images/malam.png",
       items: [
         "Sup sayur bening dengan tahu atau tempe",
         "Ubi rebus",
@@ -107,11 +111,19 @@ export function MealPlanning() {
                   </div>
                 </CardHeader>
                 <CardContent className="p-6">
-                  <div className="aspect-video bg-muted rounded-md mb-4 flex items-center justify-center overflow-hidden" data-testid={`img-meal-${index}`}>
-                    <div className="text-center p-4">
-                      <meal.icon className={`w-16 h-16 ${meal.color} mx-auto mb-2 opacity-20`} />
-                      <p className="text-sm text-muted-foreground">Gambar menu {meal.title.toLowerCase()}</p>
-                    </div>
+                  {/* Larger responsive image: taller on md/lg for better visual prominence */}
+                  <div
+                    className="w-full rounded-md mb-4 overflow-hidden bg-muted"
+                    data-testid={`img-meal-${index}`}
+                    style={{
+                      height: undefined
+                    }}
+                  >
+                    <img
+                      src={meal.image}
+                      alt={`Menu ${meal.title.toLowerCase()}`}
+                      className="w-full h-48 sm:h-56 md:h-64 lg:h-72 object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <ul className="space-y-2" data-testid={`list-meal-items-${index}`}>
                     {meal.items.map((item, itemIndex) => (
